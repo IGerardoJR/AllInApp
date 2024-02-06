@@ -5,7 +5,10 @@ import 'pages/contador.dart';
 void main(List<String> args) {
   runApp(MaterialApp(
     initialRoute: '/',
-    routes: {'/test': (context) => ContadorWidget()},
+    routes: {
+      '/hello': (context) => HolaMundoPage(),
+      '/contador': (context) => ContadorPage(),
+    },
     home: MyApp(),
   ));
 }
@@ -35,7 +38,13 @@ class MyApp extends StatelessWidget {
             child: Column(
               children: [
                 _buttonText(
-                    texto: 'Hola mundo', context: context, ruta: '/test')
+                    texto: 'Hola mundo', context: context, ruta: '/hello'),
+                SizedBox(
+                  height: _deviceHeigth * 0.01,
+                ),
+                // App contador
+                _buttonText(
+                    texto: 'ContadorApp', context: context, ruta: '/contador'),
               ],
             ),
           ),
