@@ -16,13 +16,13 @@ class _ContadorPageState extends State<ContadorPage> {
 
   void incrementarContador() {
     setState(() {
-      contador++;
+      contador += incremento;
     });
   }
 
   void decrementarContador() {
     setState(() {
-      contador--;
+      contador = contador - incremento;
     });
   }
 
@@ -66,7 +66,7 @@ class _ContadorPageState extends State<ContadorPage> {
               SizedBox(
                 height: _deviceHeigth * 0.045,
               ),
-              const Text('Estado actual del contador es de: '),
+              Text('Estado actual del contador es de: '),
               SizedBox(
                 height: _deviceHeigth * 0.045,
               ),
@@ -125,8 +125,17 @@ class _ContadorPageState extends State<ContadorPage> {
   }
 
   Widget _textFieldBox() {
-    return TextField(
-      onSubmitted: (value) {},
+    return Center(
+      child: TextField(
+        decoration: InputDecoration.collapsed(
+            border: OutlineInputBorder(), hintText: "1"),
+        textAlign: TextAlign.center,
+        onSubmitted: (value) {
+          setState(() {
+            incremento = int.parse(value);
+          });
+        },
+      ),
     );
   }
 
