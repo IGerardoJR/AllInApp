@@ -1,12 +1,36 @@
 // Simple contador probando el manejo basico de estados
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
-class ContadorPage extends StatelessWidget {
+class ContadorPage extends StatefulWidget {
+  ContadorPage({Key? key});
+
+  @override
+  State<ContadorPage> createState() => _ContadorPageState();
+}
+
+class _ContadorPageState extends State<ContadorPage> {
   late double _deviceWidth;
   late double _deviceHeigth;
-  ContadorPage({Key? key});
+  int contador = 0;
+  int incremento = 1;
+
+  void incrementarContador() {
+    setState(() {
+      contador++;
+    });
+  }
+
+  void decrementarContador() {
+    setState(() {
+      contador--;
+    });
+  }
+
+  void reiniciarContador() {
+    setState(() {
+      contador = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,18 +70,21 @@ class ContadorPage extends StatelessWidget {
               SizedBox(
                 height: _deviceHeigth * 0.045,
               ),
-              const Text('0', style: TextStyle(fontSize: 50)),
+              Text("$contador", style: TextStyle(fontSize: 50)),
               SizedBox(
                 height: _deviceHeigth * 0.045,
               ),
               SizedBox(
-                width: _deviceWidth * 0.5,
-                height: _deviceHeigth * 0.06,
-                child: _boton(
-                    accion: hacerMagia(),
-                    texto: 'Aumentar',
-                    colorBoton: Colors.green),
-              ),
+                  width: _deviceWidth * 0.5,
+                  height: _deviceHeigth * 0.06,
+                  child: _boton(
+                      accion: () {
+                        setState(() {
+                          incrementarContador();
+                        });
+                      },
+                      texto: 'Aumentar',
+                      colorBoton: Colors.green)),
               SizedBox(
                 height: _deviceHeigth * 0.02,
               ),
@@ -65,7 +92,11 @@ class ContadorPage extends StatelessWidget {
                 width: _deviceWidth * 0.5,
                 height: _deviceHeigth * 0.06,
                 child: _boton(
-                    accion: hacerMagia(),
+                    accion: () {
+                      setState(() {
+                        decrementarContador();
+                      });
+                    },
                     texto: 'Decrementar',
                     colorBoton: Colors.red),
               ),
@@ -76,7 +107,11 @@ class ContadorPage extends StatelessWidget {
                 width: _deviceWidth * 0.5,
                 height: _deviceHeigth * 0.06,
                 child: _boton(
-                    accion: hacerMagia(),
+                    accion: () {
+                      setState(() {
+                        contador = 0;
+                      });
+                    },
                     texto: 'Resetear',
                     colorBoton: Colors.black),
               ),
