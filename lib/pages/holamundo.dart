@@ -25,14 +25,6 @@ class HolaMundoPage extends StatelessWidget {
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Padding(
-                //   padding: EdgeInsets.fromLTRB(0, 0, _deviceWidth * 0.8, 0),
-                //   child: ElevatedButton(
-                //       onPressed: () => {
-                //             Navigator.pop(context),
-                //           },
-                //       child: Icon(Icons.arrow_back)),
-                // ),
                 Center(child: Text('Hola,mundo!')),
               ],
             ),

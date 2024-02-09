@@ -26,7 +26,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // Tema light por defecto
-  ThemeData theme = ThemeData.light();
+  static ThemeData theme = ThemeData.light();
   late double _deviceWidth;
   late double _deviceHeigth;
   bool darkMode = false;
