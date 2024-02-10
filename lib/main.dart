@@ -46,11 +46,11 @@ class _MyAppState extends State<MyApp> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: _deviceWidth * 0.80,
-                child: Text('Pantalla principal'),
+                child: const Text('Pantalla principal'),
               ),
-              Container(
+              SizedBox(
                   width: _deviceHeigth * 0.03, child: _iconButton(icon: icono)),
             ],
           ),
@@ -99,7 +99,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   void changeMode({required currentMode}) {
-    // currentMode == true ? theme = ThemeData.dark() : theme = ThemeData.light();
     if (currentMode == true) {
       // Cambia el modo a modo oscuro, se necesitara cambiar el color de la appbar
       theme = ThemeData.dark();

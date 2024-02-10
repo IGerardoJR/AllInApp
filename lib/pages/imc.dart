@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multiples_funcionalidades/main.dart';
 // Page para obtener le indice de masa coportal de una persona.
 
 class CorporalPage extends StatefulWidget {
@@ -10,6 +9,9 @@ class CorporalPage extends StatefulWidget {
 class _CorporalPageState extends State<CorporalPage> {
   late double _deviceWidth;
   late double _deviceHeigth;
+
+  double altura = 0;
+  double peso = 0;
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
@@ -53,7 +55,7 @@ class _CorporalPageState extends State<CorporalPage> {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
                         _deviceWidth * 0.1, 0, _deviceWidth * 0.1, 0),
-                    child: Text(
+                    child: const Text(
                       'El índice de masa corporal es un numero el cual en base al peso y altura de una persona permite identificar el sobrepeso y obesidad en adultos.',
                     ),
                   ),
@@ -72,7 +74,7 @@ class _CorporalPageState extends State<CorporalPage> {
                       ),
                       const Text('+10'),
                       SizedBox(
-                        width: _deviceWidth * 0.13,
+                        width: _deviceWidth * 0.15,
                       ),
                       const Text('+1'),
                     ],
@@ -82,15 +84,126 @@ class _CorporalPageState extends State<CorporalPage> {
                   height: _deviceHeigth * 0.012,
                 ),
                 Padding(
-                    padding: EdgeInsets.only(left: _deviceWidth * 0.0123),
+                  padding: EdgeInsets.only(left: _deviceWidth * 0.0123),
+                  child: Row(
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(left: _deviceWidth * 0.20),
+                          child: _botones()),
+                      SizedBox(
+                        width: _deviceWidth * 0.070,
+                      ),
+                      _botones(),
+                      SizedBox(
+                        width: _deviceWidth * 0.070,
+                      ),
+                      _botones()
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: _deviceHeigth * 0.012,
+                ),
+                Padding(
+                    padding: EdgeInsets.only(left: _deviceWidth * 0.2361),
                     child: Row(
                       children: [
-                        Padding(
-                            padding: EdgeInsets.only(left: _deviceWidth * 0.20),
-                            child: _botones())
+                        const Text('-100'),
+                        SizedBox(
+                          width: _deviceWidth * 0.13,
+                        ),
+                        const Text('-10'),
+                        SizedBox(
+                          width: _deviceWidth * 0.15,
+                        ),
+                        const Text('-1')
                       ],
-                    ))
-                // Primeros textos para los botones (+-100,+-10,+-1)
+                    )),
+                SizedBox(
+                  height: _deviceHeigth * 0.01199,
+                ),
+                Padding(
+                    padding: EdgeInsets.only(left: _deviceWidth * 0.25),
+                    child: SizedBox(
+                        width: _deviceWidth,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: _deviceWidth * 0.22,
+                              child: const Text(
+                                'Altura en cm',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: _deviceWidth * 0.07,
+                            ),
+                            Text("$altura")
+                          ],
+                        ))),
+                SizedBox(
+                  height: _deviceHeigth * 0.007,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: _deviceWidth * 0.2361),
+                  child: Row(
+                    children: [
+                      const Text('+10'),
+                      SizedBox(
+                        width: _deviceWidth * 0.15,
+                      ),
+                      const Text('+1'),
+                      SizedBox(
+                        width: _deviceWidth * 0.17,
+                      ),
+                      const Text('+.1'),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: _deviceHeigth * 0.007,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: _deviceWidth * 0.0123),
+                  child: Row(
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(left: _deviceWidth * 0.20),
+                          child: _botones()),
+                      SizedBox(
+                        width: _deviceWidth * 0.070,
+                      ),
+                      _botones(),
+                      SizedBox(
+                        width: _deviceWidth * 0.070,
+                      ),
+                      _botones()
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: _deviceHeigth * 0.007,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: _deviceWidth * 0.2361),
+                  child: Row(
+                    children: [
+                      const Text('-10'),
+                      SizedBox(
+                        width: _deviceWidth * 0.15,
+                      ),
+                      const Text('-1'),
+                      SizedBox(
+                        width: _deviceWidth * 0.17,
+                      ),
+                      const Text('-.1')
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: _deviceHeigth * 0.010,
+                ),
+                _btnCalcular()
               ],
             )),
       ),
@@ -100,28 +213,50 @@ class _CorporalPageState extends State<CorporalPage> {
   Widget _botones() {
     return Container(
         decoration: BoxDecoration(
-            color: Color.fromRGBO(250, 235, 235, 1.0),
+            color: const Color.fromRGBO(240, 235, 235, 1.0),
             border: Border.all(),
             borderRadius: BorderRadius.circular(20)),
         width: _deviceWidth * 0.13,
-        height: _deviceHeigth * 0.13,
-        child: const Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                '+',
-                style: TextStyle(
-                    color: Colors.greenAccent,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
+        height: _deviceHeigth * 0.15,
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          TextButton(
+            onPressed: () => {},
+            child: const Text(
+              '+',
+              style: TextStyle(
+                color: Colors.greenAccent,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                '-',
-                style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-            ]));
+            ),
+          ),
+          TextButton(
+            onPressed: () => {},
+            child: const Text(
+              '-',
+              style: TextStyle(
+                  color: Colors.red, fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+          )
+        ]));
+  }
+
+  Widget _btnCalcular() {
+    return Center(
+        child: ElevatedButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateColor.resolveWith(
+              (states) => Color.fromRGBO(53, 21, 116, 1.0)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ))),
+      onPressed: () => {},
+      child: const Text(
+        'Calcular',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+    ));
   }
 }
