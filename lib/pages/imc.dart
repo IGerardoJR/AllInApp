@@ -203,6 +203,27 @@ class _CorporalPageState extends State<CorporalPage> {
                 SizedBox(
                   height: _deviceHeigth * 0.010,
                 ),
+                Padding(
+                    padding: EdgeInsets.only(left: _deviceWidth * 0.25),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          child: const Text(
+                            'Peso en KG:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: _deviceWidth * 0.10,
+                        ),
+                        Text("$peso")
+                      ],
+                    )),
+                SizedBox(
+                  height: _deviceHeigth * 0.03,
+                ),
                 _btnCalcular()
               ],
             )),
