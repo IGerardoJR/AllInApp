@@ -84,16 +84,19 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(
                   height: _deviceHeigth * 0.01,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: _deviceHeigth * 0.05,
-                      width: _deviceWidth * 0.9,
-                      child: AlertHome(),
-                    ),
-                  ],
+                Center(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      SizedBox(
+                        height: _deviceHeigth * 0.05,
+                        width: _deviceWidth * 0.4,
+                        child: AlertHome(),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -157,12 +160,17 @@ class AlertHome extends StatelessWidget {
                           child: const Text('Cancelar')),
                       TextButton(
                         onPressed: () => {Navigator.pop(context)},
-                        child: const Text('Juan'),
+                        child: const Text('Isaias'),
                       )
                     ],
                   ))
         },
-        child: const Text('Alert dialog ejemplo'),
+        child: const Text(
+          'AlertDialog',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
       )),
     );
   }
