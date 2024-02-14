@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // Page para obtener le indice de masa coportal de una persona.
 
@@ -12,6 +13,60 @@ class _CorporalPageState extends State<CorporalPage> {
 
   double altura = 0;
   double peso = 0;
+
+  // Del 1 al 6 son los botones de arriba(+) y del 7 al 12 los de abajo.(-)
+  void aumentarValores({required idArriba}) {
+    setState(() {
+      switch (idArriba) {
+        case 1:
+          altura += 100;
+          break;
+        case 2:
+          altura += 10;
+          break;
+        case 3:
+          altura += 1;
+          break;
+        case 4:
+          peso += 10;
+          break;
+        case 5:
+          peso += 1;
+          break;
+        case 6:
+          peso += 0.1;
+        default:
+          break;
+      }
+    });
+  }
+
+  void disminurValores({required idAbajo}) {
+    setState(() {
+      switch (idAbajo) {
+        // -
+        case 1:
+          altura = altura - 100;
+          break;
+        case 2:
+          altura = altura - 10;
+          break;
+        case 3:
+          altura = altura - 1;
+          break;
+        case 4:
+          peso = peso - 10;
+          break;
+        case 5:
+          peso = peso - 1;
+          break;
+        case 6:
+          peso = peso - 0.1;
+          break;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
@@ -89,15 +144,15 @@ class _CorporalPageState extends State<CorporalPage> {
                     children: [
                       Padding(
                           padding: EdgeInsets.only(left: _deviceWidth * 0.20),
-                          child: _botones()),
+                          child: _botones(1, 1)),
                       SizedBox(
                         width: _deviceWidth * 0.070,
                       ),
-                      _botones(),
+                      _botones(2, 2),
                       SizedBox(
                         width: _deviceWidth * 0.070,
                       ),
-                      _botones()
+                      _botones(3, 3)
                     ],
                   ),
                 ),
@@ -169,15 +224,15 @@ class _CorporalPageState extends State<CorporalPage> {
                     children: [
                       Padding(
                           padding: EdgeInsets.only(left: _deviceWidth * 0.20),
-                          child: _botones()),
+                          child: _botones(4, 4)),
                       SizedBox(
                         width: _deviceWidth * 0.070,
                       ),
-                      _botones(),
+                      _botones(5, 5),
                       SizedBox(
                         width: _deviceWidth * 0.070,
                       ),
-                      _botones()
+                      _botones(6, 6)
                     ],
                   ),
                 ),
@@ -231,7 +286,7 @@ class _CorporalPageState extends State<CorporalPage> {
     );
   }
 
-  Widget _botones() {
+  Widget _botones(int idArriba, int idAbajo) {
     return Container(
         decoration: BoxDecoration(
             color: const Color.fromRGBO(240, 235, 235, 1.0),
@@ -242,7 +297,7 @@ class _CorporalPageState extends State<CorporalPage> {
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           TextButton(
-            onPressed: () => {},
+            onPressed: () => {aumentarValores(idArriba: idArriba)},
             child: const Text(
               '+',
               style: TextStyle(
@@ -253,7 +308,7 @@ class _CorporalPageState extends State<CorporalPage> {
             ),
           ),
           TextButton(
-            onPressed: () => {},
+            onPressed: () => {disminurValores(idAbajo: idAbajo)},
             child: const Text(
               '-',
               style: TextStyle(

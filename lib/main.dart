@@ -81,6 +81,20 @@ class _MyAppState extends State<MyApp> {
                     texto: 'Indice Corporal',
                     context: context,
                     ruta: '/imcapp'),
+                SizedBox(
+                  height: _deviceHeigth * 0.01,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: _deviceHeigth * 0.05,
+                      width: _deviceWidth * 0.9,
+                      child: AlertHome(),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -120,6 +134,36 @@ class _MyAppState extends State<MyApp> {
         }),
       },
       child: Icon(icon),
+    );
+  }
+}
+
+class AlertHome extends StatelessWidget {
+  AlertHome({Key? key});
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Scaffold(
+          body: ElevatedButton(
+        onPressed: () => {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Ejemplo de dialog'),
+                    content: const Text('Hola jeje'),
+                    actions: <Widget>[
+                      TextButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          child: const Text('Cancelar')),
+                      TextButton(
+                        onPressed: () => {Navigator.pop(context)},
+                        child: const Text('Juan'),
+                      )
+                    ],
+                  ))
+        },
+        child: const Text('Alert dialog ejemplo'),
+      )),
     );
   }
 }
