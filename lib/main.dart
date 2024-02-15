@@ -160,7 +160,7 @@ class AlertHome extends StatelessWidget {
                           child: const Text('Cancelar')),
                       TextButton(
                         onPressed: () => {Navigator.pop(context)},
-                        child: const Text('Isaias'),
+                        child: const Text('Isaiasc x'),
                       )
                     ],
                   ))

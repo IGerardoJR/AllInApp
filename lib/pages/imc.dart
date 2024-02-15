@@ -1,5 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:intl/intl.dart';
 // Page para obtener le indice de masa coportal de una persona.
 
 class CorporalPage extends StatefulWidget {
@@ -13,57 +14,69 @@ class _CorporalPageState extends State<CorporalPage> {
 
   double altura = 0;
   double peso = 0;
+  var resultadoFinal = NumberFormat("#.##");
+  double imcFinal = 0;
+  final mensajesPredeterminados = [
+    "Verifique los datos de peso o altura",
+  ];
+  bool alturaHabilitada = true;
 
   // Del 1 al 6 son los botones de arriba(+) y del 7 al 12 los de abajo.(-)
   void aumentarValores({required idArriba}) {
     setState(() {
-      switch (idArriba) {
-        case 1:
-          altura += 100;
-          break;
-        case 2:
-          altura += 10;
-          break;
-        case 3:
-          altura += 1;
-          break;
-        case 4:
-          peso += 10;
-          break;
-        case 5:
-          peso += 1;
-          break;
-        case 6:
-          peso += 0.1;
-        default:
-          break;
-      }
+      if (idArriba == 1 && altura > 99) {
+        altura += 0;
+      } else
+        switch (idArriba) {
+          case 1:
+            altura += 100;
+            break;
+          case 2:
+            altura += 10;
+            break;
+          case 3:
+            altura += 1;
+            break;
+          case 4:
+            peso += 10;
+            break;
+          case 5:
+            peso += 1;
+            break;
+          case 6:
+            peso += 0.1;
+          default:
+            break;
+        }
     });
   }
 
   void disminurValores({required idAbajo}) {
     setState(() {
-      switch (idAbajo) {
-        // -
-        case 1:
-          altura = altura - 100;
-          break;
-        case 2:
-          altura = altura - 10;
-          break;
-        case 3:
-          altura = altura - 1;
-          break;
-        case 4:
-          peso = peso - 10;
-          break;
-        case 5:
-          peso = peso - 1;
-          break;
-        case 6:
-          peso = peso - 0.1;
-          break;
-      }
+      if (peso < 1 && (idAbajo == 4 || idAbajo == 5 || idAbajo == 6)) {
+        peso = 0;
+      } else
+        switch (idAbajo) {
+          // -
+          case 1:
+            altura = altura - 100;
+            break;
+          case 2:
+            altura = altura - 10;
+            break;
+          case 3:
+            altura = altura - 1;
+            break;
+          case 4:
+            peso = peso - 10;
+            break;
+          case 5:
+            peso = peso - 1;
+            break;
+          case 6:
+            peso = peso - 0.1;
+            break;
+        }
     });
   }
 
@@ -279,7 +292,22 @@ class _CorporalPageState extends State<CorporalPage> {
                 SizedBox(
                   height: _deviceHeigth * 0.03,
                 ),
-                _btnCalcular()
+                _btnCalcular(peso: peso, altura: altura),
+                SizedBox(
+                  height: _deviceHeigth * 0.02,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: _deviceWidth * 0.25),
+                      child: const Text(
+                        'IMC: ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Text("${resultadoFinal.format(imcFinal)}")
+                  ],
+                )
               ],
             )),
       ),
@@ -318,7 +346,15 @@ class _CorporalPageState extends State<CorporalPage> {
         ]));
   }
 
-  Widget _btnCalcular() {
+  double calcularPeso({required peso, required altura}) {
+    double resultado = peso / (pow(altura / 100, 2));
+    setState(() {
+      imcFinal = resultado;
+    });
+    return resultado;
+  }
+
+  Widget _btnCalcular({required peso, required altura}) {
     return Center(
         child: ElevatedButton(
       style: ButtonStyle(
@@ -328,7 +364,28 @@ class _CorporalPageState extends State<CorporalPage> {
               RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ))),
-      onPressed: () => {},
+      onPressed: () => {
+        if (peso <= 0 || altura <= 0)
+          {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('error'),
+                    content: Text("${mensajesPredeterminados[0]}"),
+                    actions: [
+                      TextButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          child: const Text('Aceptar'))
+                    ],
+                  );
+                })
+          }
+        else
+          {
+            calcularPeso(peso: peso, altura: altura),
+          }
+      },
       child: const Text(
         'Calcular',
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
